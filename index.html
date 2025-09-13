@@ -8,5 +8,251 @@
 </head>
 <body>
 
+    <div class="container">
+
+    <!-- شاشة الترحيب -->
+    <section id="welcome" class="welcome">
+      <i class="fas fa-car-rear logo-xxl"></i>
+      <h1 class="title">مركز تأجير سيارات</h1>
+      <p class="subtitle">شاشة ترحيب → اختيار واجهة → تبويبات → بطاقات → دردشة → تخصيص سِمة. يتضمن أيضًا <strong>واجهة تعريفية بالفريق (٦ أعضاء)</strong>.</p>
+
+      <div class="interface-cards">
+        <button class="card-btn" data-target="#userUI">
+          <i class="fas fa-user"></i>
+          <h3>واجهة المستأجر</h3>
+          <p>استعرض السيارات واحجز فورًا</p>
+        </button>
+        <button class="card-btn" data-target="#companyUI">
+          <i class="fas fa-building"></i>
+          <h3>واجهة الشركة</h3>
+          <p>إدارة الأسطول والحجوزات</p>
+        </button>
+        <button class="card-btn" data-target="#aboutUI">
+          <i class="fas fa-people-group"></i>
+          <h3>تعرف علينا</h3>
+          <p>فريقنا المكوّن من ٦ أعضاء</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- واجهة المستأجر -->
+    <section id="userUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-id-card"></i>
+          <strong>واجهة المستأجر</strong>
+        </div>
+        <span class="badge"><i class="fas fa-shield-halved"></i> سهل وآمن</span>
+      </header>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="#rentPanel" aria-selected="true">استعراض السيارات</button>
+        <button class="tab" data-tab="#chatPanel">المساعد</button>
+      </div>
+
+      <div id="rentPanel" class="section active" role="tabpanel">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car"></i> سيارات متاحة</h3><div class="v">32</div></div>
+          <div class="kpi"><h3><i class="fas fa-gas-pump"></i> بنزين/هايبرد/كهرباء</h3><div class="v">20 / 8 / 4</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> أقل سعر/يوم</h3><div class="v">$19</div></div>
+          <div class="kpi"><h3><i class="fas fa-star"></i> رضا العملاء</h3><div class="v">94%</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-list"></i> أسطول السيارات</h2></div>
+          <div class="cars">
+            <div class="car">
+              <div class="img"><i class="fas fa-car-side"></i></div>
+              <div class="body">
+                <strong>تويوتا كورولا 2023</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> بنزين</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $25/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-car"></i></div>
+              <div class="body">
+                <strong>هيونداي توسان 2022</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> هايبرد</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $39/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-bolt"></i></div>
+              <div class="body">
+                <strong>تسلا موديل 3 2021</strong>
+                <div class="meta"><span><i class="fas fa-plug"></i> كهرباء</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $59/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-mobile-screen"></i> معاينة تطبيق الحجز</h2></div>
+          <div class="preview">
+            <div class="phone">
+              <div class="ph-head">حجوزاتي</div>
+              <div class="ph-body">
+                <button class="btn btn-primary" style="width:100%"><i class="fas fa-plus"></i> حجز جديد</button>
+                <div style="margin-top:8px"><i class="fas fa-location-dot"></i> الاستلام: المطار</div>
+                <div><i class="fas fa-clock"></i> 10:00 صباحًا — 3 أيام</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="themes">
+            <strong>سِمة الواجهة:</strong>
+            <button class="dot active" data-t="orange" title="برتقالي"></button>
+            <button class="dot" data-t="teal" title="تركوازي"></button>
+            <button class="dot" data-t="gray" title="رمادي"></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="chatPanel" class="section" role="tabpanel" aria-hidden="true">
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-robot"></i> مساعد الحجز</h2></div>
+          <div class="chat">
+            <div class="chat-head"><i class="fas fa-comments"></i> اسأل عن السيارات/الأسعار</div>
+            <div id="msgs" class="msgs">
+              <div class="msg ai">مرحبًا! إلى أين تنوي السفر؟ ومتى تحتاج السيارة؟</div>
+            </div>
+            <div class="composer">
+              <input id="chatInput" type="text" placeholder="اكتب رسالتك…" />
+              <button id="sendBtn"><i class="fas fa-paper-plane"></i> إرسال</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة الشركة -->
+    <section id="companyUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-warehouse"></i>
+          <strong>واجهة الشركة</strong>
+        </div>
+        <span class="badge"><i class="fas fa-gear"></i> إدارة وتشغيل</span>
+      </header>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="#fleetPanel" aria-selected="true">لوحة الأسطول</button>
+        <button class="tab" data-tab="#opsPanel">التشغيل</button>
+      </div>
+
+      <div id="fleetPanel" class="section active">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car-side"></i> عدد السيارات</h3><div class="v">85</div></div>
+          <div class="kpi"><h3><i class="fas fa-screwdriver-wrench"></i> تحت الصيانة</h3><div class="v">6</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> دخل اليوم</h3><div class="v">$2,430</div></div>
+          <div class="kpi"><h3><i class="fas fa-star"></i> الرضا</h3><div class="v">92%</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-clipboard-list"></i> إضافة سيارة</h2></div>
+          <form id="carForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+            <label>الموديل <input type="text" id="carModel" placeholder="Camry 2023" required></label>
+            <label>الوقود
+              <select id="carFuel"><option>بنزين</option><option>ديزل</option><option>هايبرد</option><option>كهرباء</option></select>
+            </label>
+            <label>المقاعد <input type="number" id="carSeats" min="2" max="9" value="5"></label>
+            <label>السعر/يوم <input type="number" id="carPrice" min="1" step="1" value="30"></label>
+            <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> حفظ</button>
+          </form>
+          <ul id="fleetList" style="margin-top:12px;display:grid;gap:8px"></ul>
+        </div>
+      </div>
+
+      <div id="opsPanel" class="section" aria-hidden="true">
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-truck-ramp-box"></i> العمليات</h2></div>
+          <p>هنا يمكن تتبّع التسليم/الاستلام وجدولة الصيانة والتنبيهات.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة تعريفية: ٦ أعضاء -->
+    <section id="aboutUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-people-group"></i>
+          <strong>فريقنا</strong>
+        </div>
+        <span class="badge"><i class="fas fa-handshake-angle"></i> نخدمك بابتسامة</span>
+      </header>
+
+      <div class="card">
+        <div class="card-header"><h2><i class="fas fa-id-badge"></i> ٦ أعضاء يقودون المركز</h2></div>
+        <div class="team">
+          <div class="member">
+            <div class="avatar">AA</div>
+            <h3>أنور الكرابة</h3>
+            <div class="role">Product Owner</div>
+            <p class="muted">خبرة 10 سنوات في إدارة الأساطيل.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">SA</div>
+            <h3>سالم الوهاشي</h3>
+            <div class="role">Scrum Master</div>
+            <p class="muted">تحسين سير العمل والتشغيل اليومي.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">SM</div>
+            <h3>صهيب منتصر</h3>
+            <div class="role">UI/UX Designer</div>
+            <p class="muted">يضع مخيلاتك أمامك بأفضل صورة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">AA</div>
+            <h3>عبدالرحمن النصيري</h3>
+            <div class="role">Development</div>
+            <p class="muted">استجابات سريعة ورضا مرتفع.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">NH</div>
+            <h3>نصر هويده</h3>
+            <div class="role">Development</div>
+            <p class="muted">قرارات مبنية على بيانات.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">HA</div>
+            <h3>حمزة الشوكي</h3>
+            <div class="role">Development</div>
+            <p class="muted">نظم أكوادك بطريقة ذكية وجذابة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2><i class="fas fa-location-dot"></i> موقعنا وساعات العمل</h2></div>
+        <p>صنعاء — شارع الخمسين، عدن — خور مكسر، تعز — التحرير، حضرموت — المكلا. يوميًا ٨:٠٠ ص — ١١:٠٠ م.</p>
+      </div>
+    </section>
+
+  </div>
+
 </body>
 </html>
