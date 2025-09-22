@@ -269,6 +269,86 @@
     </div>
 
   </div>
+<script>
+    // إظهار قسم وإخفاء غيره
+    function showSection(selector){
+      document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active'); s.setAttribute('aria-hidden','true');});
+      const t = document.querySelector(selector);
+      if(t){ t.classList.add('active'); t.setAttribute('aria-hidden','false'); window.scrollTo({top:0,behavior:'smooth'}); }
+    }
+
+    // أزرار الانتقال
+    document.querySelectorAll('[data-target]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ const target = btn.getAttribute('data-target'); if(target) showSection(target); });
+    });
+
+    // تبويبات
+    document.querySelectorAll('.tabs').forEach(bar=>{
+      bar.addEventListener('click', (e)=>{
+        const tab = e.target.closest('.tab'); if(!tab) return;
+        const panelId = tab.dataset.tab; const scope = bar.closest('.screen');
+        scope.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b===tab));
+        scope.querySelectorAll('.section').forEach(s=>{s.classList.remove('active'); s.setAttribute('aria-hidden','true');});
+        const panel = scope.querySelector(panelId);
+        if(panel){ panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); }
+      });
+    });
+
+    // دردشة
+    const input = document.getElementById('chatInput');
+    const send  = document.getElementById('sendBtn');
+    const msgs  = document.getElementById('msgs');
+    function addMsg(text, who='me'){
+      const d = document.createElement('div'); d.className = 'msg ' + (who==='me' ? 'me':'ai'); d.textContent = text;
+      msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+    }
+    if(send){
+      send.addEventListener('click', ()=>{
+        const v = (input.value||'').trim(); if(!v) return; addMsg(v,'me'); input.value='';
+        setTimeout(()=> addMsg('تم! خيار ممتاز. عندنا تويوتا كورولا اقتصادية أو هايلوكس للدروب الوعرة. تحب الاستلام من المطار ولا من الفرع؟','ai'), 650);
+      });
+      input.addEventListener('keydown', e=>{ if(e.key==='Enter') send.click(); });
+    }
+
+    // تغيير السِمة (يبقى الطابع البرتقالي فاخرًا)
+    const root = document.documentElement;
+    const themes = {
+      orange:{primary:'#f59e0b',secondary:'#ea580c',accent:'#fb923c'},
+      sand:{primary:'#f59e0b',secondary:'#fcd34d',accent:'#fde68a'},
+      teal:{primary:'#0d9488',secondary:'#0ea5e9',accent:'#22d3ee'},
+    };
+    document.querySelectorAll('.dot').forEach(dot=>{
+      dot.addEventListener('click', ()=>{
+        document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active')); dot.classList.add('active');
+        const t = themes[dot.dataset.t]; if(!t) return;
+        root.style.setProperty('--primary', t.primary);
+        root.style.setProperty('--secondary', t.secondary);
+        root.style.setProperty('--accent', t.accent);
+      });
+    });
+
+    // إضافة سيارة للأسطول (واجهة الشركة)
+    const carForm = document.getElementById('carForm');
+    const fleetList = document.getElementById('fleetList');
+    if(carForm){
+      carForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const model=document.getElementById('carModel').value.trim();
+        const fuel=document.getElementById('carFuel').value;
+        const seats=document.getElementById('carSeats').value;
+        const price=document.getElementById('carPrice').value;
+        if(!model) return;
+        const li=document.createElement('li');
+        li.style.cssText='display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--stroke);border-radius:12px;padding:10px';
+        li.innerHTML=`<div><strong>${model}</strong> — ${fuel}, ${seats} مقاعد</div><div style="color:#fff;font-weight:800">﷼ ${Number(price).toLocaleString('ar-EG')}</div>`;
+        fleetList.appendChild(li);
+        carForm.reset();
+      });
+    }
+
+    // بداية: عرض الترحيب
+    showSection('#welcome');
+  </script>
 
 </body>
 </html>
