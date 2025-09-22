@@ -10,6 +10,265 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <div class="container">
+
+    <!-- شريط علوي -->
+    <div class="topbar glass">
+      <div class="brand">
+        <i class="fas fa-gem"></i>
+        <strong>دار الياقوت لتأجير السيارات</strong>
+      </div>
+      <div class="contact">
+        <div class="chip"><i class="fas fa-location-dot"></i> صنعاء • عدن • تعز • حضرموت</div>
+        <div class="chip"><i class="fab fa-whatsapp"></i> 967-781118308+</div>
+        <div class="chip"><i class="fas fa-phone"></i> 967-781118308+</div>
+      </div>
+    </div>
+
+    <!-- شاشة الترحيب الفخمة -->
+    <section id="welcome" class="hero glass">
+      <div class="hero-inner">
+        <div>
+          <span class="badge"><i class="fas fa-car"></i> Yemen Luxury Rentals</span>
+          <h1>تجربة تأجير فاخرة بمعايير عالمية وروح يمنية</h1>
+          <p>استلم سيارتك من <span class="gold">مطار صنعاء/عدن</span> أو من أحد فروعنا. أسطولنا يشمل السيدان الاقتصادية وحتى الدفع الرباعي المناسبة لطرقات اليمن. الدفع بالريال اليمني مع عروض للمقيمين والزوار.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-target="#userUI"><i class="fas fa-calendar-check"></i> احجز الآن</button>
+            <button class="btn" data-target="#aboutUI"><i class="fas fa-people-group"></i> تعرف على فريقنا</button>
+            <button class="btn ghost" data-target="#companyUI"><i class="fas fa-warehouse"></i> واجهة الشركة</button>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="v">+٩٥٪</div><div class="muted">رضا العملاء</div></div>
+            <div class="stat"><div class="v">+١٢٠</div><div class="muted">سيارة متاحة</div></div>
+            <div class="stat"><div class="v">٤ مدن</div><div class="muted">نخدمك فيها</div></div>
+          </div>
+        </div>
+        <div class="hero-card glass">
+          <div class="hero-phone">
+            <div class="head">حجوزاتي</div>
+            <div class="body">
+              <button class="btn btn-primary" style="width:100%"><i class="fas fa-plus"></i> إنشاء حجز</button>
+              <div style="margin-top:8px"><i class="fas fa-location-dot"></i> الاستلام: مطار عدن</div>
+              <div><i class="fas fa-clock"></i> الجمعة 10:00 ص — ٣ أيام</div>
+              <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap">
+                <span class="tag">اقتصادية</span><span class="tag">عائلية</span><span class="tag">دفع رباعي</span>
+              </div>
+            </div>
+          </div>
+          <div class="themes">
+            <span class="muted">سِمة الواجهة:</span>
+            <button class="dot active" data-t="orange" title="برتقالي"></button>
+            <button class="dot" data-t="sand" title="ذهبي رملي"></button>
+            <button class="dot" data-t="teal" title="تركوازي"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة المستأجر -->
+    <section id="userUI" class="screen">
+      <div class="glass" style="padding:12px;border-radius:999px;display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+        <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+        <div style="display:flex;gap:8px" class="tabs">
+          <button class="tab active" data-tab="#rentPanel" aria-selected="true">أسطول السيارات</button>
+          <button class="tab" data-tab="#chatPanel">مساعد الحجز</button>
+        </div>
+      </div>
+
+      <header class="app glass">
+        <h2><i class="fas fa-id-card"></i> واجهة المستأجر</h2>
+        <div class="chip"><i class="fas fa-shield-halved"></i> سياسة تأمين شاملة</div>
+      </header>
+
+      <div id="rentPanel" class="section active">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car"></i> السيارات المتاحة اليوم</h3><div class="v">١٢٨</div></div>
+          <div class="kpi"><h3><i class="fas fa-gas-pump"></i> الوقود</h3><div class="v">بنزين • ديزل • هايبرد • كهرباء</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> أقل سعر/يوم</h3><div class="v"><span class="price">﷼ ٨٬٩٩٠</span></div></div>
+          <div class="kpi"><h3><i class="fas fa-location-dot"></i> فروعنا</h3><div class="v">صنعاء • عدن • تعز • حضرموت</div></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-header"><h3><i class="fas fa-list"></i> أسطول مختار</h3></div>
+          <div class="cars">
+            <div class="car">
+              <div class="img"><i class="fas fa-car-side"></i></div>
+              <div class="body">
+                <strong>تويوتا كورولا 2023 — أوتوماتيك</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> بنزين</span><span><i class="fas fa-users"></i> 5</span><span class="tag">اقتصادية</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ <span class="price">﷼ ٩٬٩٩٠</span>/يوم</button>
+                  <button class="btn"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-truck-pickup"></i></div>
+              <div class="body">
+                <strong>تويوتا هايلوكس 2022 — دبل</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> ديزل</span><span><i class="fas fa-users"></i> 5</span><span class="tag">دفع رباعي</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ <span class="price">﷼ ١٦٬٥٠٠</span>/يوم</button>
+                  <button class="btn"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-bolt"></i></div>
+              <div class="body">
+                <strong>هيونداي أيونيك 5 — كهرباء</strong>
+                <div class="meta"><span><i class="fas fa-plug"></i> كهرباء</span><span><i class="fas fa-users"></i> 5</span><span class="tag">عائلية</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ <span class="price">﷼ ١٩٬٩٠٠</span>/يوم</button>
+                  <button class="btn"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-car"></i></div>
+              <div class="body">
+                <strong>كيا سبورتاج 2021 — أوتوماتيك</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> بنزين</span><span><i class="fas fa-users"></i> 5</span><span class="tag">كروس أوفر</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ <span class="price">﷼ ١٢٬٧٥٠</span>/يوم</button>
+                  <button class="btn"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="chatPanel" class="section">
+        <div class="card glass">
+          <div class="chat">
+            <div class="chat-head"><i class="fas fa-robot"></i> مساعد الحجز — باللهجة اليمنية</div>
+            <div id="msgs" class="msgs">
+              <div class="msg ai">حيّاك الله! وين تبا تستلم السيارة؟ صنعاء ولا عدن؟ ومتى الموعد؟</div>
+            </div>
+            <div class="composer">
+              <input id="chatInput" type="text" placeholder="اكتب رسالتك… مثل: أبغى سيارة اقتصادية من مطار صنعاء بكرة 9 الصبح" />
+              <button id="sendBtn"><i class="fas fa-paper-plane"></i> إرسال</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة الشركة -->
+    <section id="companyUI" class="screen">
+      <div class="glass" style="padding:12px;border-radius:999px;display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+        <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+        <div style="display:flex;gap:8px" class="tabs">
+          <button class="tab active" data-tab="#fleetPanel" aria-selected="true">لوحة الأسطول</button>
+          <button class="tab" data-tab="#opsPanel">التشغيل</button>
+        </div>
+      </div>
+
+      <header class="app glass">
+        <h2><i class="fas fa-warehouse"></i> واجهة الشركة</h2>
+        <div class="chip"><i class="fas fa-shield"></i> سجلات صيانة مؤتمتة</div>
+      </header>
+
+      <div id="fleetPanel" class="section active">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car-side"></i> عدد السيارات</h3><div class="v">١٢٨</div></div>
+          <div class="kpi"><h3><i class="fas fa-screwdriver-wrench"></i> تحت الصيانة</h3><div class="v">٧</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> دخل اليوم</h3><div class="v">﷼ ١٢٩٬٠٠٠</div></div>
+          <div class="kpi"><h3><i class="fas fa-star"></i> الرضا</h3><div class="v">٩٥٪</div></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-header"><h3><i class="fas fa-clipboard-list"></i> إضافة سيارة</h3></div>
+          <form id="carForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+            <label>الموديل <input type="text" id="carModel" placeholder="Land Cruiser 2023" required></label>
+            <label>الوقود
+              <select id="carFuel"><option>بنزين</option><option>ديزل</option><option>هايبرد</option><option>كهرباء</option></select>
+            </label>
+            <label>المقاعد <input type="number" id="carSeats" min="2" max="9" value="5"></label>
+            <label>السعر/يوم (﷼) <input type="number" id="carPrice" min="1" step="1" value="9990"></label>
+            <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> حفظ</button>
+          </form>
+          <ul id="fleetList" style="margin-top:12px;display:grid;gap:8px"></ul>
+        </div>
+      </div>
+
+      <div id="opsPanel" class="section">
+        <div class="card glass">
+          <div class="card-header"><h3><i class="fas fa-truck-ramp-box"></i> العمليات</h3></div>
+          <p class="muted">تتبّع التسليم/الاستلام، مسارات السائقين، وتنبيهات الصيانة الدورية في صنعاء وعدن وتعز وحضرموت.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة تعريفية: ٦ أعضاء يمنيون -->
+    <section id="aboutUI" class="screen">
+      <div class="glass" style="padding:12px;border-radius:999px;display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+        <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+        <div class="muted" style="font-weight:800"><i class="fas fa-id-badge"></i> فريق دار الياقوت</div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-header"><h3><i class="fas fa-people-group"></i> ٦ أعضاء يقودون المركز</h3></div>
+        <div class="team">
+          <div class="member">
+            <div class="avatar">أ</div>
+            <h3> أنور الكرابة</h3>
+            <div class="role">Product Owner</div>
+            <p class="muted">خبرة 10 سنوات في إدارة الأساطيل.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">س</div>
+            <h3> سالم الوهاشي</h3>
+            <div class="role">Scrum Master</div>
+            <p class="muted">تحسين سير العمل والتشغيل اليومي.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">ص</div>
+            <h3>صهيب منتصر</h3>
+            <div class="role">UI/UX Designer</div>
+            <p class="muted">يضع مخيلاتك أمامك بأفضل صورة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">ع</div>
+            <h3>عبدالرحمن النصيري</h3>
+            <div class="role">Development</div>
+            <p class="muted">استجابات سريعة ورضا مرتفع.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">ن</div>
+            <h3>نصر هويدة  </h3>
+            <div class="role">Development</div>
+            <p class="muted">قرارات مبنية على بيانات.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">ح</div>
+            <h3>حمزة الشوكي </h3>
+            <div class="role">Development</div>
+            <p class="muted">نظم أكوادك بطريقة ذكية وجذابة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card glass">
+        <div class="card-header"><h3><i class="fas fa-map-location-dot"></i> موقعنا وساعات العمل</h3></div>
+        <p>صنعاء — شارع الخمسين، عدن — خور مكسر، تعز — التحرير، حضرموت — المكلا. يوميًا <span class="gold">٨:٠٠ ص — ١١:٠٠ م</span>.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© ٢٠٢٥ دار الياقوت لتأجير السيارات — جميع الحقوق محفوظة</div>
+      <div class="muted">الأسعار بالريال اليمني (﷼) وقد تتغير حسب التوفر والموسم</div>
+    </div>
+
+  </div>
 
 </body>
 </html>
