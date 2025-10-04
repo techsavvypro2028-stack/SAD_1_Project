@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مركز تأجير سيارات</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --primary:#f8961e; --secondary:#f3722c; --accent:#f9844a;
+      --light:#fff7f0; --dark:#1f2937; --card:#fff; --muted:#6b7280;
+      --r:16px; --shadow:0 8px 20px rgba(0,0,0,.12); --t:.25s ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,#fff3e7,#fffaf5);color:var(--dark);min-height:100vh;padding:20px}
+    .container{max-width:1200px;margin:auto}
+
+    /* شاشة الترحيب */
+    .welcome{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:36px;text-align:center;margin:24px 0}
+    .logo-xxl{font-size:4.5rem;color:var(--primary);margin-bottom:12px}
+    .title{background:linear-gradient(to right,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:2.2rem;margin-bottom:6px}
+    .subtitle{color:#6b7280;margin-bottom:18px}
+    .interface-cards{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:12px}
+    .card-btn{width:280px;background:#fff;border:2px solid var(--primary);border-radius:var(--r);padding:22px;cursor:pointer;box-shadow:var(--shadow);transition:transform var(--t)}
+    .card-btn:hover{transform:translateY(-6px)}
+    .card-btn i{font-size:2.2rem;color:var(--primary);margin-bottom:8px}
+    .card-btn h3{color:#b45309;margin:6px 0}
+
+    /* الواجهات */
+    .screen{display:none;animation:fade .35s ease}
+    .screen.active{display:block}
+    header.app{background:linear-gradient(to right,var(--primary),var(--secondary));color:#fff;padding:16px;border-radius:var(--r);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:16px 0}
+    .badge{background:rgba(255,255,255,.25);padding:6px 12px;border-radius:999px}
+    .back{background:var(--primary);color:#fff;border:none;border-radius:999px;padding:9px 16px;cursor:pointer;margin:8px 0}
+
+    .tabs{display:flex;gap:8px;background:#fff;border-radius:999px;padding:6px;box-shadow:var(--shadow);flex-wrap:wrap;margin:12px 0}
+    .tab{border:none;background:transparent;padding:8px 14px;border-radius:999px;font-weight:700;cursor:pointer}
+    .tab.active{background:linear-gradient(to right,var(--primary),var(--secondary));color:#fff}
+
+    .section{display:none}.section.active{display:block}
+    .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:20px;margin:12px 0}
+    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #eee}
+    .card-header h2{color:#b45309;font-size:1.2rem;display:flex;align-items:center;gap:10px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+    .kpi{background:#fff;border-left:6px solid var(--primary);border-radius:var(--r);padding:14px}
+    .kpi .v{font-size:1.8rem;font-weight:800;color:#b45309;text-align:center}
+
+    /* بطاقات السيارات */
+    .cars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .car{border:1px solid #ffe0c2;border-radius:14px;overflow:hidden;background:#fff}
+    .car .img{background:#fff7f0;height:150px;display:flex;align-items:center;justify-content:center;font-size:2.6rem}
+    .car .body{padding:14px}
+    .car .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.9rem;margin:8px 0}
+    .car .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    /* الدردشة */
+    .chat{border:1px solid #ffe0c2;border-radius:var(--r);display:flex;flex-direction:column}
+    .chat-head{background:linear-gradient(to right,var(--primary),var(--secondary));color:#fff;padding:12px;border-radius:var(--r) var(--r) 0 0;display:flex;align-items:center;gap:8px}
+    .msgs{max-height:260px;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+    .msg{max-width:85%;padding:10px 14px;border-radius:18px;line-height:1.6}
+    .ai{background:#fff1e6;align-self:flex-start}
+    .me{background:#f97316;color:#fff;align-self:flex-end}
+    .composer{display:flex;gap:8px;padding:10px;border-top:1px solid #ffe0c2}
+    .composer input{flex:1;padding:10px;border-radius:999px;border:1px solid #ffc387}
+    .composer button{border:none;border-radius:999px;padding:0 16px;background:#f97316;color:#fff}
+
+    /* المعاينة + الثيم */
+    .preview{display:flex;justify-content:center;align-items:center;min-height:300px;border:1px solid #ffe0c2;border-radius:var(--r)}
+    .phone{width:240px;height:480px;border:12px solid #1f2937;border-radius:28px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+    .phone .ph-head{background:linear-gradient(to right,var(--primary),var(--secondary));height:60px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    .phone .ph-body{padding:14px}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:999px;padding:10px 16px;cursor:pointer}
+    .btn-primary{background:linear-gradient(to right,var(--primary),var(--secondary));color:#fff}
+    .btn-outline{background:#fff7f0;border:2px solid #ffc387}
+
+    .themes{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .dot{width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2);cursor:pointer}
+    .dot.active{outline:3px solid var(--primary)}
+    .dot[data-t="orange"]{background:#f97316}
+    .dot[data-t="teal"]{background:#0d9488}
+    .dot[data-t="gray"]{background:#6b7280}
+
+    /* صفحة تعريف الفريق */
+    .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .member{background:#fff;border:1px solid #ffe0c2;border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+    .avatar{width:84px;height:84px;border-radius:50%;margin:0 auto 10px;background:#fff7f0;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#b45309}
+    .role{color:#b45309;font-weight:700;margin-top:4px}
+    .social{display:flex;justify-content:center;gap:10px;margin-top:8px}
+
+    @media (max-width:768px){.preview{min-height:auto;padding:12px}}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- شاشة الترحيب -->
+    <section id="welcome" class="welcome">
+      <i class="fas fa-car-rear logo-xxl"></i>
+      <h1 class="title">مركز تأجير سيارات</h1>
+      <p class="subtitle">شاشة ترحيب → اختيار واجهة → تبويبات → بطاقات → دردشة → تخصيص سِمة. يتضمن أيضًا <strong>واجهة تعريفية بالفريق (٦ أعضاء)</strong>.</p>
+
+      <div class="interface-cards">
+        <button class="card-btn" data-target="#userUI">
+          <i class="fas fa-user"></i>
+          <h3>واجهة المستأجر</h3>
+          <p>استعرض السيارات واحجز فورًا</p>
+        </button>
+        <button class="card-btn" data-target="#companyUI">
+          <i class="fas fa-building"></i>
+          <h3>واجهة الشركة</h3>
+          <p>إدارة الأسطول والحجوزات</p>
+        </button>
+        <button class="card-btn" data-target="#aboutUI">
+          <i class="fas fa-people-group"></i>
+          <h3>تعرف علينا</h3>
+          <p>فريقنا المكوّن من ٦ أعضاء</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- واجهة المستأجر -->
+    <section id="userUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-id-card"></i>
+          <strong>واجهة المستأجر</strong>
+        </div>
+        <span class="badge"><i class="fas fa-shield-halved"></i> سهل وآمن</span>
+      </header>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="#rentPanel" aria-selected="true">استعراض السيارات</button>
+        <button class="tab" data-tab="#chatPanel">المساعد</button>
+      </div>
+
+      <div id="rentPanel" class="section active" role="tabpanel">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car"></i> سيارات متاحة</h3><div class="v">32</div></div>
+          <div class="kpi"><h3><i class="fas fa-gas-pump"></i> بنزين/هايبرد/كهرباء</h3><div class="v">20 / 8 / 4</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> أقل سعر/يوم</h3><div class="v">$19</div></div>
+          <div class="kpi"><h3><i class="fas fa-star"></i> رضا العملاء</h3><div class="v">94%</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-list"></i> أسطول السيارات</h2></div>
+          <div class="cars">
+            <div class="car">
+              <div class="img"><i class="fas fa-car-side"></i></div>
+              <div class="body">
+                <strong>تويوتا كورولا 2023</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> بنزين</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $25/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-car"></i></div>
+              <div class="body">
+                <strong>هيونداي توسان 2022</strong>
+                <div class="meta"><span><i class="fas fa-gas-pump"></i> هايبرد</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $39/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+            <div class="car">
+              <div class="img"><i class="fas fa-bolt"></i></div>
+              <div class="body">
+                <strong>تسلا موديل 3 2021</strong>
+                <div class="meta"><span><i class="fas fa-plug"></i> كهرباء</span><span><i class="fas fa-gears"></i> أوتوماتيك</span><span><i class="fas fa-users"></i> 5</span></div>
+                <div class="actions">
+                  <button class="btn btn-primary"><i class="fas fa-calendar-check"></i> احجز بـ $59/يوم</button>
+                  <button class="btn btn-outline"><i class="fas fa-circle-info"></i> تفاصيل</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-mobile-screen"></i> معاينة تطبيق الحجز</h2></div>
+          <div class="preview">
+            <div class="phone">
+              <div class="ph-head">حجوزاتي</div>
+              <div class="ph-body">
+                <button class="btn btn-primary" style="width:100%"><i class="fas fa-plus"></i> حجز جديد</button>
+                <div style="margin-top:8px"><i class="fas fa-location-dot"></i> الاستلام: المطار</div>
+                <div><i class="fas fa-clock"></i> 10:00 صباحًا — 3 أيام</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="themes">
+            <strong>سِمة الواجهة:</strong>
+            <button class="dot active" data-t="orange" title="برتقالي"></button>
+            <button class="dot" data-t="teal" title="تركوازي"></button>
+            <button class="dot" data-t="gray" title="رمادي"></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="chatPanel" class="section" role="tabpanel" aria-hidden="true">
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-robot"></i> مساعد الحجز</h2></div>
+          <div class="chat">
+            <div class="chat-head"><i class="fas fa-comments"></i> اسأل عن السيارات/الأسعار</div>
+            <div id="msgs" class="msgs">
+              <div class="msg ai">مرحبًا! إلى أين تنوي السفر؟ ومتى تحتاج السيارة؟</div>
+            </div>
+            <div class="composer">
+              <input id="chatInput" type="text" placeholder="اكتب رسالتك…" />
+              <button id="sendBtn"><i class="fas fa-paper-plane"></i> إرسال</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة الشركة -->
+    <section id="companyUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-warehouse"></i>
+          <strong>واجهة الشركة</strong>
+        </div>
+        <span class="badge"><i class="fas fa-gear"></i> إدارة وتشغيل</span>
+      </header>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="#fleetPanel" aria-selected="true">لوحة الأسطول</button>
+        <button class="tab" data-tab="#opsPanel">التشغيل</button>
+      </div>
+
+      <div id="fleetPanel" class="section active">
+        <div class="grid">
+          <div class="kpi"><h3><i class="fas fa-car-side"></i> عدد السيارات</h3><div class="v">85</div></div>
+          <div class="kpi"><h3><i class="fas fa-screwdriver-wrench"></i> تحت الصيانة</h3><div class="v">6</div></div>
+          <div class="kpi"><h3><i class="fas fa-coins"></i> دخل اليوم</h3><div class="v">$2,430</div></div>
+          <div class="kpi"><h3><i class="fas fa-star"></i> الرضا</h3><div class="v">92%</div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-clipboard-list"></i> إضافة سيارة</h2></div>
+          <form id="carForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+            <label>الموديل <input type="text" id="carModel" placeholder="Camry 2023" required></label>
+            <label>الوقود
+              <select id="carFuel"><option>بنزين</option><option>ديزل</option><option>هايبرد</option><option>كهرباء</option></select>
+            </label>
+            <label>المقاعد <input type="number" id="carSeats" min="2" max="9" value="5"></label>
+            <label>السعر/يوم <input type="number" id="carPrice" min="1" step="1" value="30"></label>
+            <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> حفظ</button>
+          </form>
+          <ul id="fleetList" style="margin-top:12px;display:grid;gap:8px"></ul>
+        </div>
+      </div>
+
+      <div id="opsPanel" class="section" aria-hidden="true">
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-truck-ramp-box"></i> العمليات</h2></div>
+          <p>هنا يمكن تتبّع التسليم/الاستلام وجدولة الصيانة والتنبيهات.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- واجهة تعريفية: ٦ أعضاء -->
+    <section id="aboutUI" class="screen" aria-hidden="true">
+      <button class="back" data-target="#welcome"><i class="fas fa-arrow-right"></i> العودة</button>
+
+      <header class="app">
+        <div style="display:flex;align-items:center;gap:10px">
+          <i class="fas fa-people-group"></i>
+          <strong>فريقنا</strong>
+        </div>
+        <span class="badge"><i class="fas fa-handshake-angle"></i> نخدمك بابتسامة</span>
+      </header>
+
+      <div class="card">
+        <div class="card-header"><h2><i class="fas fa-id-badge"></i> ٦ أعضاء يقودون المركز</h2></div>
+        <div class="team">
+          <div class="member">
+            <div class="avatar">AA</div>
+            <h3>أنور الكرابة</h3>
+            <div class="role">Product Owner</div>
+            <p class="muted">خبرة 10 سنوات في إدارة الأساطيل.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">SA</div>
+            <h3>سالم الوهاشي</h3>
+            <div class="role">Scrum Master</div>
+            <p class="muted">تحسين سير العمل والتشغيل اليومي.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">SM</div>
+            <h3>صهيب منتصر</h3>
+            <div class="role">UI/UX Designer</div>
+            <p class="muted">يضع مخيلاتك أمامك بأفضل صورة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">AA</div>
+            <h3>عبدالرحمن النصيري</h3>
+            <div class="role">Development</div>
+            <p class="muted">استجابات سريعة ورضا مرتفع.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">NH</div>
+            <h3>نصر هويده</h3>
+            <div class="role">Development</div>
+            <p class="muted">قرارات مبنية على بيانات.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+          <div class="member">
+            <div class="avatar">HA</div>
+            <h3>حمزة الشوكي</h3>
+            <div class="role">Development</div>
+            <p class="muted">نظم أكوادك بطريقة ذكية وجذابة.</p>
+            <div class="social"><a href="#"><i class="fab fa-linkedin"></i></a><a href="#"><i class="fas fa-envelope"></i></a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2><i class="fas fa-location-dot"></i> موقعنا وساعات العمل</h2></div>
+        <p>صنعاء — شارع الخمسين، عدن — خور مكسر، تعز — التحرير، حضرموت — المكلا. يوميًا ٨:٠٠ ص — ١١:٠٠ م.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // إظهار قسم وإخفاء غيره
+    function showSection(selector){
+      document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active'); s.setAttribute('aria-hidden','true');});
+      const t = document.querySelector(selector);
+      if(t){ t.classList.add('active'); t.setAttribute('aria-hidden','false'); }
+    }
+
+    // الانتقال بين الشاشات
+    document.querySelectorAll('.card-btn, .back').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const target = btn.getAttribute('data-target');
+        if(target) showSection(target); else showSection('#welcome');
+      });
+    });
+
+    // تبويبات
+    document.querySelectorAll('.tabs').forEach(bar=>{
+      bar.addEventListener('click', (e)=>{
+        const tab = e.target.closest('.tab'); if(!tab) return;
+        const panelId = tab.dataset.tab; const scope = bar.parentElement;
+        scope.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b===tab));
+        scope.querySelectorAll('.section').forEach(s=>{s.classList.remove('active'); s.setAttribute('aria-hidden','true');});
+        const panel = scope.querySelector(panelId);
+        if(panel){ panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); }
+      });
+    });
+
+    // دردشة بسيطة
+    const input = document.getElementById('chatInput');
+    const send  = document.getElementById('sendBtn');
+    const msgs  = document.getElementById('msgs');
+    function addMsg(text, who='me'){
+      const d = document.createElement('div'); d.className = 'msg ' + (who==='me' ? 'me':'ai'); d.textContent = text;
+      msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+    }
+    if(send){
+      send.addEventListener('click', ()=>{
+        const v = (input.value||'').trim(); if(!v) return; addMsg(v,'me'); input.value='';
+        setTimeout(()=> addMsg('جميل! لدينا سيارات تبدأ من $19/يوم. تفضّل فئة اقتصادية أم SUV؟','ai'), 600);
+      });
+      input.addEventListener('keydown', e=>{ if(e.key==='Enter') send.click(); });
+    }
+
+    // تغيير السِمة
+    const root = document.documentElement;
+    const themes = { orange:{primary:'#f8961e',secondary:'#f3722c',accent:'#f9844a'}, teal:{primary:'#0d9488',secondary:'#0f766e',accent:'#14b8a6'}, gray:{primary:'#6b7280',secondary:'#4b5563',accent:'#9ca3af'} };
+    document.querySelectorAll('.dot').forEach(dot=>{
+      dot.addEventListener('click', ()=>{
+        document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active')); dot.classList.add('active');
+        const t = themes[dot.dataset.t]; if(!t) return;
+        root.style.setProperty('--primary', t.primary);
+        root.style.setProperty('--secondary', t.secondary);
+        root.style.setProperty('--accent', t.accent);
+      });
+    });
+
+    // إضافة سيارة للأسطول (لوحة الشركة)
+    const carForm = document.getElementById('carForm');
+    const fleetList = document.getElementById('fleetList');
+    if(carForm){
+      carForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const model=document.getElementById('carModel').value.trim();
+        const fuel=document.getElementById('carFuel').value;
+        const seats=document.getElementById('carSeats').value;
+        const price=document.getElementById('carPrice').value;
+        if(!model) return;
+        const li=document.createElement('li');
+        li.style.cssText='display:flex;justify-content:space-between;align-items:center;background:#fff7f0;border:1px solid #ffe0c2;border-radius:12px;padding:10px';
+        li.innerHTML=`<div><strong>${model}</strong> — ${fuel}, ${seats} مقاعد</div><div style="color:#6b7280">$${price}/يوم</div>`;
+        fleetList.appendChild(li);
+        carForm.reset();
+      });
+    }
+
+    // بداية: عرض شاشة الترحيب
+    showSection('#welcome');
+  </script>
+</body>
+</html>
